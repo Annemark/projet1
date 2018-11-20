@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd"
+		default-merge="true">
+
+	<context:annotation-config />
+
+	<bean id="springmvc" class="fr.dawan.spring.beans.Formation"
+		scope="prototype">
+		<property name="duree" value="5"></property>
+		<property name="libelle"
+			value="Spring MVC Initiation et approfondissement"></property>
+		<property name="prix" value="2000"></property>
+	</bean>
+
+	<bean id="jpa" class="fr.dawan.spring.beans.Formation">
+		<constructor-arg value="Formation JPA-Hibernate"></constructor-arg>
+		<constructor-arg value="5"></constructor-arg>
+		<constructor-arg value="950.00"></constructor-arg>
+	</bean>
+
+	<bean id="jpa1" class="fr.dawan.spring.beans.Formation">
+		<constructor-arg value="Formation JPA-Hibernate"></constructor-arg>
+		<constructor-arg value="5"></constructor-arg>
+		<constructor-arg value="950.00"></constructor-arg>
+		<property name="description" value="la pause"></property>
+	</bean>
+
+	<bean id="jseinit" class="fr.dawan.spring.beans.Formation">
+		<constructor-arg value="Java SE - Initiaton"></constructor-arg>
+		<constructor-arg value="5" type="int"></constructor-arg>
+	</bean>
+
+	<bean id="jseappro" class="fr.dawan.spring.beans.Formation">
+		<constructor-arg value="Java SE - Approfondissement"></constructor-arg>
+		<constructor-arg
+			value="Approfondissement Java Stand Edition"></constructor-arg>
+	</bean>
+
+
+	<bean id="uml" class="fr.dawan.spring.beans.Formation"
+		scope="singleton" init-method="initialisationFormation">
+		<constructor-arg value="UML" index="1"></constructor-arg>
+		<constructor-arg value="500" index="0"></constructor-arg>
+		<constructor-arg value="Découverte UML" index="2"></constructor-arg>
+	</bean>
+
+
+	<bean id="contact1" class="fr.dawan.spring.beans.Contact">
+		<property name="nom" value="Doe"></property>
+		<property name="prenom" value="Jane"></property>
+	</bean>
+
+	<bean id="stagiaire1" class="fr.dawan.spring.beans.Stagiaire"
+		parent="contact1"> <!-- Héritage -->
+		<property name="codeStagiaire" value="DW-DOE-123456"></property>
+	</bean>
+
+	<bean id="stagiaire2" class="fr.dawan.spring.beans.Stagiaire"
+		parent="contact1" init-method="init"></bean>
+	<bean id="stagiaire3" class="fr.dawan.spring.beans.Stagiaire"
+		parent="contact1" init-method="init">
+	</bean>
+	<bean id="stagiaire4" class="fr.dawan.spring.beans.Stagiaire"
+		parent="contact1" init-method="init"></bean>
+	<bean id="stagiaire5" class="fr.dawan.spring.beans.Stagiaire"
+		parent="contact1" init-method="init"></bean>
+
+	<!-- <property name="generator" ref="randomgenerator"></property> -->
+
+	<bean id="randomGenerator"
+		class="fr.dawan.spring.utils.RandomNumberGenerator">
+	</bean>
+
+	<bean id="incrementalGenerator"
+		class="fr.dawan.spring.utils.IncrementalNumberGenerator">
+		<property name="compteur" value="1000"></property>
+		<property name="pas" value="3"></property>
+	</bean>
+
+	<bean id="catalogue1" class="fr.dawan.spring.beans.Catalogue">
+		<property name="listeFormation">
+			<list>
+				<ref bean="springmvc" />
+				<ref bean="springmvc" />
+				<ref bean="jpa" />
+				<ref bean="jseinit" />
+				<bean id="Git" class="fr.dawan.spring.beans.Formation">
+					<property name="libelle" value="GIT"></property>
+					<property name="duree" value="2"></property>
+					<property name="prix" value="1000"></property>
+					<property name="description"
+						value="Gérez vos versions avec un outil formidable!"></property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="catalogue2" class="fr.dawan.spring.beans.Catalogue">
+		<property name="listeFormation">
+			<set value-type="listeFormation">
+				<ref bean="springmvc" />
+				<ref bean="springmvc" />
+				<ref bean="jpa" />
+				<ref bean="jseinit" />
+				<!-- <ref bean= "stagiaire"/> -->
+				<bean id="Git" class="fr.dawan.spring.beans.Formation">
+					<property name="libelle" value="GIT"></property>
+					<property name="duree" value="2"></property>
+					<property name="prix" value="1000"></property>
+					<property name="description"
+						value="Gérez vos versions avec un outil formidable!"></property>
+				</bean>
+			</set>
+		</property>
+	</bean>
+
+
+	<bean id="contact2" class="fr.dawan.spring.beans.Contact">
+		<property name="nom" value="Lorent"></property>
+		<property name="prenom" value="Christopher"></property>
+		<property name="listeAdresse">
+			<util:list value-type="java.util.ArrayList">
+				<value type="java.lang.String">clorent@dawan.fr</value>
+				<value type="java.lang.String">toto@dawan.fr</value>
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="contact3" class="fr.dawan.spring.beans.Contact">
+		<property name="nom" value="Lorent"></property>
+		<property name="prenom" value="Christopher"></property>
+		<property name="listeAdresse">
+			<list value-type="java.util.ArrayList">
+				<value type="java.lang.String">clorent@dawan.fr</value>
+				<value type="java.lang.String">toto@dawan.fr</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="stagiaireFormateur"
+		class="fr.dawan.spring.beans.Stagiaire" parent="contact3">
+		<property name="prenom" value="Adeline"></property>
+		<property name="listeAdresse">
+			<list>
+				<!-- <list merge="true"> -->
+				<!-- "default"=false, si voulais merge, il faut mettre true -->
+
+				<value>adeline.lorent@toto.com</value>
+
+			</list>
+
+		</property>
+	</bean>
+
+
+
+
+
+
+	<bean id="catalogue3" class="fr.dawan.spring.beans.Catalogue">
+		<property name="formations">
+			<map>
+				<entry key="1" value="Spring MVC"></entry>
+				<entry key="2" value="Java EE"></entry>
+				<entry key="3" value="Salesforce"></entry>
+			</map>
+		</property>
+	</bean>
+
+</beans>
