@@ -15,7 +15,7 @@ public class RandomNumberGenerator implements NumberGenerator {
 		code.append(stagiaire.getNom().toUpperCase().substring(0,3));
 		code.append("-");
 		code.append(random);
-		
+		System.out.println("New changes");
 		return code.toString();
 		
 //		String code = "DW-";

@@ -94,6 +94,7 @@ public class ProgrammePrincipal {
 //			Formation formationGit = context.getBean("Git", Formation.class);
 //			System.out.println(formationGit);
 //		
+		System.out.println("New changes");
 			
 		
 		System.out.println("\nRECUPERATION DU CATALOGUE 2");
